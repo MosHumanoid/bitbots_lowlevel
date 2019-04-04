@@ -583,7 +583,7 @@ void DynamixelHardwareInterface::write()
       syncWriteVelocity();
   } else if (_control_mode == EffortControl)
   {
-      syncWriteCurrent();
+      syncWriteEffort();
   }else if (_control_mode == CurrentBasedPositionControl){
     // only write things if it is necessary
     if(_goal_effort != _last_goal_effort){
@@ -911,6 +911,7 @@ bool DynamixelHardwareInterface::syncWriteProfileAcceleration() {
 }
 
 bool DynamixelHardwareInterface::syncWriteCurrent() {
+  // this method is only used in current based position control
   int* goal_current = (int*)malloc(_joint_names.size() * sizeof(int));
   for (size_t num = 0; num < _joint_names.size(); num++) {
     if(_goal_effort[num] < 0){
@@ -929,6 +930,29 @@ bool DynamixelHardwareInterface::syncWriteCurrent() {
   _driver->syncWrite("Goal_Current", goal_current);
   free(goal_current);
 }
+
+bool DynamixelHardwareInterface::syncWriteEffort() {
+  // this method is only used in effort control mode
+  int* goal_current = (int*)malloc(_joint_names.size() * sizeof(int));
+  for (size_t num = 0; num < _joint_names.size(); num++) {
+    int max_current = 0;
+    // get max current
+    if(_driver->getModelNum(_joint_ids[num]) == 311){
+      max_current = 1941;
+    }else if (_driver->getModelNum(_joint_ids[num]) == 321){
+      max_current = 2047;
+    }else{
+      ROS_WARN("Maximal current for this dynamixel model is not defined");
+    }      
+
+    goal_current[num] = _driver->convertTorque2Value(_joint_ids[num], _goal_effort[num]); 
+    // limit the current
+    goal_current[num] = std::max(std::min(goal_current[num], max_current), max_current *-1);    
+  }
+  _driver->syncWrite("Goal_Current", goal_current);
+  free(goal_current);
+}
+
 
 bool DynamixelHardwareInterface::syncWritePWM() {
   int* goal_current = (int*)malloc(_joint_names.size() * sizeof(int));

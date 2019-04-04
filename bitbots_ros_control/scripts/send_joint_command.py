@@ -2,9 +2,9 @@
 
 import rospy
 from bitbots_msgs.msg import JointCommand
+import math
 
-
-ids = {"HeadPan": 0,
+"""ids = {"HeadPan": 0,
                "HeadTilt": 1,
                "LShoulderPitch": 2,
                "LShoulderRoll": 3,
@@ -24,20 +24,25 @@ ids = {"HeadPan": 0,
                "RKnee": 17,
                "RAnklePitch": 18,
                "RAnkleRoll": 19}
+"""
 
+ids = { "RShoulderPitch": 0}
 rospy.init_node("send_joint_command")
 
 pos_msg = JointCommand()
 pos_msg.joint_names = ids.keys()
 #pos_msg.joint_names = ["RShoulderRoll"]
-pos_msg.velocities = [-1.0] * 20
-pos_msg.positions = [0.0] * 20
-pos_msg.accelerations = [-1.0] * 20
-pos_msg.max_currents = [-1.0] * 20
+pos_msg.velocities = [-1] * len(ids)
+pos_msg.positions = [0] *  len(ids)
+pos_msg.accelerations = [-1] *  len(ids)
+pos_msg.max_currents = [-1.0] *  len(ids)
 
 pub = rospy.Publisher("/DynamixelController/command", JointCommand, queue_size=1)
 print(pos_msg)
+rate = rospy.Rate(100)
 while not rospy.is_shutdown():
     pos_msg.header.stamp = rospy.Time.now()
+    pos_msg.positions = [math.sin(rospy.get_time() % (2 * math.pi)) * math.pi ]
     pub.publish(pos_msg)  
-    rospy.sleep(0.1)
+    rate.sleep()
+    

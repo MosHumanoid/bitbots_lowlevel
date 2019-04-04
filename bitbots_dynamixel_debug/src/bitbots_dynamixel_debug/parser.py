@@ -5,7 +5,7 @@ def parse(id_req=False, register_req=False, data_req=False):
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--p1", help="use old protocol version", action="store_true")
-    parser.add_argument("--port",  dest='port', default='ACM0', help="Choose port, e.g. USB0 or ACM0. Standard is ACM0")
+    parser.add_argument("--port",  dest='port', default='ttyACM0', help="Choose port, e.g. USB0 or ACM0. Standard is ACM0")
     parser.add_argument("--b", default="2000000", help="Choose baudrate. Standard is 2000000")
 
     if id_req:

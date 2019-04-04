@@ -115,6 +115,7 @@ private:
   bool syncWriteVelocity();
   bool syncWriteProfileVelocity();
   bool syncWriteCurrent();
+  bool syncWriteEffort();
   bool syncWriteProfileAcceleration();
 
 

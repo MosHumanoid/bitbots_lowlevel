@@ -14,7 +14,7 @@ ids =[]
 ids.append([1, 2, 3, 4, 5])
 ids.append([6, 7, 8, 9, 10])
 ids.append([11, 12, 13, 14, 15])
-ids.append([16, 18, 19, 20])
+ids.append([16, 17, 18, 19, 20])
 
 def write_1_to_all(port, reg, val):
     for i in ids[port]:
@@ -22,7 +22,7 @@ def write_1_to_all(port, reg, val):
 
 for i in range(0,4):
     #p = multiprocessing.Process(target=c.sync_read_loop, args=(i, ids[i], 9, 1, True))
-    p = multiprocessing.Process(target=write_1_to_all, args=(i, 68, 1))
+    p = multiprocessing.Process(target=write_1_to_all, args=(i, 11, 0))
     jobs.append(p)
 
 for i in range(0,4):

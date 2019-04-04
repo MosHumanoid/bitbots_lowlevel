@@ -144,6 +144,7 @@ class Connector(object):
         if nb_detected == maxId:
             return True
 
+
     def read_1(self, id, reg, port=0, doPrint=False):
         read_res = dynamixel.read1ByteTxRx(self.port_num[port], self.protocol, id, reg)
         dxl_comm_result = dynamixel.getLastTxRxResult(self.port_num[port], self.protocol)
