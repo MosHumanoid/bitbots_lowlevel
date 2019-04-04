@@ -1,24 +1,24 @@
 ros_control:
   # specifies which information should be read
   read_position: true
-  read_velocity: true
-  read_effort: true
-  read_volt_temp: false # this also corresponds for the error byte
+  read_velocity: false
+  read_effort: false
+  read_volt_temp: true # this also corresponds for the error byte
   read_pressure: false
   VT_update_rate: 100 # how many normal (position) reads have to be performed before one time the temperature, voltage and error is read
   warn_temp: 60
   warn_volt: 12
-  read_imu: false
+  read_imu: true
   onlySensors: false
   control_loop_hz: 1000
 
   # specification of the connected dynamixel servos
   dynamixels:
     port_info:
-      port_name: /dev/ttyUSB3
-      baudrate: 4000000
+      port_name: /dev/ttyACM0
+      baudrate: 2000000
       protocol_version: 2
-    control_mode: effort
+    control_mode: position
     auto_torque: true
     set_ROM_RAM: true # set the following values on startup to all motors
     ROM_RAM:

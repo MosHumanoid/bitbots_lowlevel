@@ -12,7 +12,26 @@ joint_state_controller:
 DynamixelController:
   type: bitbots_ros_control/DynamixelController
   joints:
+      - HeadPan
+      - HeadTilt
+      - LShoulderPitch
+      - LShoulderRoll
+      - LElbow
       - RShoulderPitch
+      - RShoulderRoll
+      - RElbow
+      - LHipYaw
+      - LHipRoll
+      - LHipPitch
+      - LKnee
+      - LAnklePitch
+      - LAnkleRoll
+      - RHipYaw
+      - RHipRoll
+      - RHipPitch
+      - RKnee
+      - RAnklePitch
+      - RAnkleRoll
 
 
 
@@ -57,7 +76,27 @@ JointGroupController:
 JointGroupControllerEffort:
   type: effort_controllers/JointGroupPositionController
   joints: 
-    - RShoulderPitch
+      - HeadPan
+      - HeadTilt
+      - LShoulderPitch
+      - LShoulderRoll
+      - LElbow
+      - RShoulderPitch
+      - RShoulderRoll
+      - RElbow
+      - LHipYaw
+      - LHipRoll
+      - LHipPitch
+      - LKnee
+      - LAnklePitch
+      - LAnkleRoll
+      - RHipYaw
+      - RHipRoll
+      - RHipPitch
+      - RKnee
+      - RAnklePitch
+      - RAnkleRoll
+
   RShoulderPitch: { pid: { p: 50.0, i: 0.00, d: 0.0, i_clamp: 4.0 } }
 
 
