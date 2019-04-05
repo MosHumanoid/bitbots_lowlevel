@@ -145,6 +145,19 @@ class Connector(object):
             return True
 
 
+    def read(self, id, reg, no_reg, port=0, doPrint=False):
+        read_res = dynamixel.readTxRx(self.port_num[port], self.protocol, id, reg, no_reg)        
+        dxl_comm_result = dynamixel.getLastTxRxResult(self.port_num[port], self.protocol)
+        dxl_error = dynamixel.getLastRxPacketError(self.port_num[port], self.protocol)
+        if dxl_comm_result != COMM_SUCCESS:
+            print(dynamixel.getTxRxResult(self.protocol, dxl_comm_result))            
+        elif dxl_error != 0:
+            print(dynamixel.getRxPacketError(self.protocol, dxl_error))
+
+        if doPrint:
+            print("[ID:%03d] Regist %03d: %03d" % (id, reg, read_res))
+        return read_res
+
     def read_1(self, id, reg, port=0, doPrint=False):
         read_res = dynamixel.read1ByteTxRx(self.port_num[port], self.protocol, id, reg)
         dxl_comm_result = dynamixel.getLastTxRxResult(self.port_num[port], self.protocol)
