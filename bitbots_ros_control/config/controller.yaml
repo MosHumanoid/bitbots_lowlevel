@@ -14,24 +14,6 @@ DynamixelController:
   joints:
       - HeadPan
       - HeadTilt
-      - LShoulderPitch
-      - LShoulderRoll
-      - LElbow
-      - RShoulderPitch
-      - RShoulderRoll
-      - RElbow
-      - LHipYaw
-      - LHipRoll
-      - LHipPitch
-      - LKnee
-      - LAnklePitch
-      - LAnkleRoll
-      - RHipYaw
-      - RHipRoll
-      - RHipPitch
-      - RKnee
-      - RAnklePitch
-      - RAnkleRoll
 
 
 TestController:
@@ -49,48 +31,14 @@ JointGroupController:
   joints:
       - HeadPan
       - HeadTilt
-      - LShoulderPitch
-      - LShoulderRoll
-      - LElbow
-      - RShoulderPitch
-      - RShoulderRoll
-      - RElbow
-      - LHipYaw
-      - LHipRoll
-      - LHipPitch
-      - LKnee
-      - LAnklePitch
-      - LAnkleRoll
-      - RHipYaw
-      - RHipRoll
-      - RHipPitch
-      - RKnee
-      - RAnklePitch
-      - RAnkleRoll
+      
 
 JointGroupControllerEffort:
   type: effort_controllers/JointGroupPositionController
   joints: 
     - HeadPan
     - HeadTilt
-    - LShoulderPitch
-    - LShoulderRoll
-    - LElbow
-    - RShoulderPitch
-    - RShoulderRoll
-    - RElbow
-    - LHipYaw
-    - LHipRoll
-    - LHipPitch
-    - LKnee
-    - LAnklePitch
-    - LAnkleRoll
-    - RHipYaw
-    - RHipRoll
-    - RHipPitch
-    - RKnee
-    - RAnklePitch
-    - RAnkleRoll
+    
   HeadPan:        { pid: { p: 50.0, i: 0.00, d: 1.0, i_clamp: 4.0 } }
   HeadTilt:       { pid: { p: 50.0, i: 0.00, d: 1.0, i_clamp: 4.0 } }
   LShoulderPitch: { pid: { p: 50.0, i: 0.00, d: 1.0, i_clamp: 4.0 } }
@@ -120,24 +68,7 @@ TrajectoryController:
   joints:
       - HeadPan
       - HeadTilt
-      - LShoulderPitch
-      - LShoulderRoll
-      - LElbow
-      - RShoulderPitch
-      - RShoulderRoll
-      - RElbow
-      - LHipYaw
-      - LHipRoll
-      - LHipPitch
-      - LKnee
-      - LAnklePitch
-      - LAnkleRoll
-      - RHipYaw
-      - RHipRoll
-      - RHipPitch
-      - RKnee
-      - RAnklePitch
-      - RAnkleRoll
+     
   gains:
     No1:        { p: 50.0, i: 0.00, d: 0.4, i_clamp: 4.0 }
     No2:        { p: 50.0, i: 0.00, d: 0.4, i_clamp: 4.0 }
@@ -168,24 +99,7 @@ TrajectoryControllerEffort:
   joints: 
     - HeadPan
     - HeadTilt
-    - LShoulderPitch
-    - LShoulderRoll
-    - LElbow
-    - RShoulderPitch
-    - RShoulderRoll
-    - RElbow
-    - LHipYaw
-    - LHipRoll
-    - LHipPitch
-    - LKnee
-    - LAnklePitch
-    - LAnkleRoll
-    - RHipYaw
-    - RHipRoll
-    - RHipPitch
-    - RKnee
-    - RAnklePitch
-    - RAnkleRoll
+   
   gains:
     HeadPan:         { p: 50.0, i: 0.00, d: 1.0, i_clamp: 4.0 }
     HeadTilt:        { p: 50.0, i: 0.00, d: 1.0, i_clamp: 4.0 }
