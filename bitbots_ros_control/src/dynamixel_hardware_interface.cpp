@@ -229,7 +229,45 @@ bool DynamixelHardwareInterface::loadDynamixels(ros::NodeHandle& nh)
   }
 
   std::sort(dxls.begin(), dxls.end(),
-        [](std::pair<std::string, int>& a, std::pair<std::string, int>& b) { return a.second < b.second; });
+        [](std::pair<std::string, int>& a, std::pair<std::string, int>& b) {
+      /* We generally want to read the motors in ID order, but since the ankle pitch
+       * and ankle roll motors are reversed on the bus (17 is before 15 and 16 is before 14),
+       * we want to switch them to make debugging of cable errors easier. */
+      int value_a, value_b;
+      switch (a.second) {
+          case 14:
+              value_a = 16;
+              break;
+          case 15:
+              value_a = 17;
+              break;
+          case 16:
+              value_a = 14;
+              break;
+          case 17:
+              value_a = 15;
+              break;
+          default:
+              value_a = a.second;
+      }
+      switch (b.second) {
+          case 14:
+              value_b = 16;
+              break;
+          case 15:
+              value_b = 17;
+              break;
+          case 16:
+              value_b = 14;
+              break;
+          case 17:
+              value_b = 15;
+              break;
+          default:
+              value_b = b.second;
+      }
+      return value_a < value_b;
+  });
 
   for(std::pair<std::string, int> &joint : dxls) {
     std::string dxl_name = joint.first;
