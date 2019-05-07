@@ -13,10 +13,6 @@ DynamixelHardwareInterface::DynamixelHardwareInterface()
 
 bool DynamixelHardwareInterface::init(ros::NodeHandle& nh)
 {
-
-  //reset tty port
-  system("tput reset > /dev/ttyACM0");
-
   _nh = nh;
   _update_pid = false;
   _lost_servo_connection = false;
@@ -41,6 +37,10 @@ bool DynamixelHardwareInterface::init(ros::NodeHandle& nh)
   nh.getParam("dynamixels/port_info/port_name", port_name);
   int baudrate;
   nh.getParam("dynamixels/port_info/baudrate", baudrate);
+
+  //reset tty port
+  system(("tput reset > " + port_name).c_str());
+
   if(!_driver->init(port_name.c_str(), uint32_t(baudrate))){
     ROS_ERROR("Error opening serial port %s", port_name.c_str());
     speak("Error opening serial port");
