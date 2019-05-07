@@ -41,13 +41,16 @@ int main(int argc, char** argv)
   bool first_update = true;
   ros::Rate rate(pnh.param("control_loop_hz", 200));
 
+  // Remember how many times we failed to read
+  int num_failed_reads = 0;
+
   while (ros::ok())
-  {    
+  {
     bool read_sucessfull = hw.read();
     ros::Duration period = ros::Time::now() - current_time;
-    current_time = ros::Time::now(); 
-    if(read_sucessfull){ 
-      // only write something to hardware 
+    current_time = ros::Time::now();
+    if(read_sucessfull){
+      // only write something to hardware
       if (first_update) {
         first_update = false;
       } else {
@@ -66,6 +69,13 @@ int main(int argc, char** argv)
         cm.update(current_time, period);
       }
       hw.write();
+    } else {
+      num_failed_reads++;
+      if (num_failed_reads >= 5000) {
+        ROS_ERROR("Reinitilizing hardware interface");
+        hw.init(pnh);
+        num_failed_reads = 0;
+      }
     }
     rate.sleep();
     ros::spinOnce();
